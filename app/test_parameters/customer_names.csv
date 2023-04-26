@@ -1,0 +1,19 @@
+first_name,error_message
+Name!,First Name is invalid.
+Name@,First Name is invalid.
+Name$,First Name is invalid.
+Name%,First Name is invalid.
+Name^,First Name is invalid.
+Name&,First Name is invalid.
+Name*,First Name is invalid.
+Name(,First Name is invalid.
+Name!,First Name is invalid.
+Name_,First Name is invalid.
+Name=,First Name is invalid.
+Name+,First Name is invalid.
+Name|,First Name is invalid.
+Name”,First Name is invalid.
+Name',First Name is invalid.
+Name?,First Name is invalid.
+Name*,First Name is invalid.
+NameeNameeNameeNameeNameeNameeNameeNameeNameeNameeNameeNameeNameeNameeNameeNamee,First Name must be lesser than 50 characters
