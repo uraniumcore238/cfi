@@ -17,7 +17,6 @@ def load_env():
 def pytest_addoption(parser):
     parser.addoption("--browser", action="store", default="chrome")
     parser.addoption("--browser_ver", action="store", default="109.0")
-    parser.addoption("--headless", action="store", default=False)
     parser.addoption("--remote", action="store", default=False)
     parser.addoption("--hub", action="store", default="localhost")
 
@@ -27,12 +26,10 @@ def config(request):
     browser = request.config.getoption("--browser")
     version = request.config.getoption("--browser_ver")
     hub = request.config.getoption("--hub")
-    headless = bool(request.config.getoption("--headless"))
     remote = bool(request.config.getoption("--remote"))
     return {"remote": remote,
             "version": version,
             "browser": browser,
-            "headless": headless,
             "hub": hub}
 
 
