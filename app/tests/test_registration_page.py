@@ -35,7 +35,7 @@ from app.utilities.get_parameters_from_file import data_generator
 @allure.title("Customer doesn't fill the first name")
 def test_empty_first_name(wd):
     registration_page = RegistrationPage(wd)
-    url = f"{os.getenv('URL_PROD')}/cy/en/registration"
+    url = "https://registration.cfifinancial.com/cy/en/registration"
     registration_page.open(url)
     registration_page.click_on_next_btn()
     registration_page.assert_first_name_error('Please complete your first name')
