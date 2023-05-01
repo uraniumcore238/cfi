@@ -1,125 +1,13 @@
 name: Test
-#
-#on:
-#  push:
-#    branches:
-#      - "master"
-#jobs:
-#  test:
-#    name: Test
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#      - name: Set up Python 3.x
-#        uses: actions/setup-python@v2
-#        with:
-#          python-version: '3.x'
-#      - name: Install dependencies
-#        run: |
-#          pip install -r requirements.txt
-#      - name: Install dependencies
-#        run: |
-#          pytest --alluredir=allure-results
-#          pytest tests/api
-#      - name: Get Allure history
-#        uses: actions/checkout@v2
-#        if: always()
-#        continue-on-error: true
-#        with:
-#          ref: gh-pages
-#          path: gh-pages
-#      - name: Allure Report action from marketplace
-#        uses: simple-elf/allure-report-action@master
-#        if: always()
-#        with:
-#          allure_results: allure-results
-#          allure_history: allure-history
-#          keep_reports: 20
-#      - name: Deploy report to Github Pages
-#        if: always()
-#        uses: peaceiris/actions-gh-pages@v2
-#        env:
-#          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#          PUBLISH_BRANCH: gh-pages
-#          PUBLISH_DIR: allure-history
-
-
-
-#on:
-#  push:
-#    branches:
-#      - "master"
-#jobs:
-#  tests:
-#    name: Run python tests
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v3
-#      - uses: actions/setup-python@v4
-#        with:
-#          python-version: '3.10'
-#
-#      - name: Install xvfb
-#        run: sudo apt-get install xvfb
-#
-#      - uses: nanasess/setup-chromedriver@v1
-#
-#      - run: |
-#          export DISPLAY=:99
-#          chromedriver --url-base=/wd/hub &
-#          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
-#
-#      - run: pip install -r requirements.txt
-#      - run: pytest tests/api
-#      - run: pytest tests/ui
-#
-#
-#  allure:
-#    name: Generate Allure Report
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#
-#      - name: Get Allure history
-#        uses: actions/checkout@v2
-#        if: always()
-#        continue-on-error: true
-#        with:
-#          ref: gh-pages
-#          path: gh-pages
-#
-#      - name: Allure Report action from marketplace
-#        uses: simple-elf/allure-report-action@master
-#        if: always()
-#        #id: allure-report
-#        with:
-#          allure_results: allure-results
-#          #gh_pages: gh-pages
-#          #allure_report: allure-report
-#          allure_history: allure-history
-#          keep_reports: 20
-
-#      - name: Deploy report to Github Pages
-#        if: always()
-#        uses: peaceiris/actions-gh-pages@v2
-#        env:
-#          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#          PUBLISH_BRANCH: gh-pages
-#          PUBLISH_DIR: allure-history
-
-
-
-
-
-
 
 on:
   push:
-    branches:
-      - "main"
+    branches-ignore:
+      - '!main'
+
 jobs:
-  test:
-    name: Test
+  autotests:
+    name: Run tests and generate Allure Report
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -129,13 +17,29 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Install xvfb
+        run: sudo apt-get install xvfb
+      - uses: nanasess/setup-chromedriver@v1
+
+      - run: |
+          export DISPLAY=:99
+          chromedriver --url-base=/wd/hub &
+          sudo Xvfb -ac :99 -screen 0 1280x1024x24 > /dev/null 2>&1 & # optional
       - name: Install dependencies
         run: |
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
-      - name: Run tests
-        run: |
-          pytest app/tests --alluredir=allure-results
+#      - name: Install software
+#        run: sudo apt-get install -y chromium-browser
 
+#      - name: Check code style
+#        if: always()
+#        run: |
+#          ruff .
+      - name: Run Test
+        if: always()
+        run: pytest --remote True app/tests/test_registration_page.py
+        continue-on-error: true
       - name: Get Allure history
         uses: actions/checkout@v3
         if: always()
@@ -143,11 +47,15 @@ jobs:
         with:
           ref: gh-pages
           path: gh-pages
+
       - name: Allure Report action from marketplace
         uses: simple-elf/allure-report-action@master
         if: always()
+#        id: allure-report
         with:
           allure_results: allure-results
+#          gh_pages: gh-pages
+#          allure_report: allure-report
           allure_history: allure-history
           keep_reports: 20
 
@@ -158,3 +66,58 @@ jobs:
           PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: allure-history
+
+
+
+
+
+
+
+
+
+
+#on:
+#  push:
+#    branches:
+#      - "main"
+#jobs:
+#  test:
+#    name: Test
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v3
+#
+#      - name: Set up Python 3.x
+#        uses: actions/setup-python@v4
+#        with:
+#          python-version: '3.x'
+#
+#      - name: Install dependencies
+#        run: |
+#          pip install -r requirements.txt
+#      - name: Run tests
+#        run: |
+#          pytest app/tests --alluredir=allure-results
+#
+#      - name: Get Allure history
+#        uses: actions/checkout@v3
+#        if: always()
+#        continue-on-error: true
+#        with:
+#          ref: gh-pages
+#          path: gh-pages
+#      - name: Allure Report action from marketplace
+#        uses: simple-elf/allure-report-action@master
+#        if: always()
+#        with:
+#          allure_results: allure-results
+#          allure_history: allure-history
+#          keep_reports: 20
+#
+#      - name: Deploy report to Github Pages
+#        if: always()
+#        uses: peaceiris/actions-gh-pages@v2
+#        env:
+#          PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          PUBLISH_BRANCH: gh-pages
+#          PUBLISH_DIR: allure-history
