@@ -16,7 +16,7 @@ def load_env():
 
 def pytest_addoption(parser):
     parser.addoption("--browser", action="store", default="chrome")
-    parser.addoption("--browser_ver", action="store", default="109.0")
+    parser.addoption("--browser_ver", action="store", default="111.0")
 
     parser.addoption("--remote", action="store", default=False)
     parser.addoption("--hub", action="store", default="localhost")
@@ -32,7 +32,6 @@ def config(request):
     return {"remote": remote,
             "version": version,
             "browser": browser,
-
             "hub": hub}
 
 
@@ -75,6 +74,7 @@ def create_remote_driver(config):
         }
     }
     options.capabilities.update(capabilities)
+    # return webdriver.Remote(command_executor="http://localhost:4444/wd/hub", options=options)
     return webdriver.Remote(command_executor="http://localhost:9515/wd/hub", options=options)
 
 
@@ -128,4 +128,5 @@ def wd(config):
     with allure.step('Close the driver'):
         attach.add_html(driver)
         attach.add_logs(driver)
+        attach.add_video(driver)
         driver.quit()
