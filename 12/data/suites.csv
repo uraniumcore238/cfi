@@ -1,3 +1,0 @@
-"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"passed","Mon May 01 18:12:54 GMT 2023","Mon May 01 18:12:59 GMT 2023","4857","app.tests","test_registration_page","","","","Customer doesn't fill the first name",""
-"broken","Mon May 01 18:13:00 GMT 2023","Mon May 01 18:13:00 GMT 2023","10","app.tests","test_registration_page","","","","Customer doesn't fill the last name",""
