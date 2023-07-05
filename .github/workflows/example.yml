@@ -12,11 +12,6 @@ jobs:
      - tests
     container:
       image: ubuntu:22.04
-      env:
-        URL: https://registration-ui.kube.cfi-dev.tech
-        URL_LOGIN: https://client-portal-api.kube.cfi-dev.tech
-        URL_LOGIN2: https://client-portal-ui.kube.cfi-dev.tech
-        URL_API: https://registration-api.kube.cfi-dev.tech
     steps:
       - uses: actions/checkout@v3
 
