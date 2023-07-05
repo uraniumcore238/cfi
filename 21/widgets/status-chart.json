@@ -1,0 +1,1 @@
+[{"uid":"7f0d81462f8bd166","name":"Customer doesn't fill the first name","time":{"start":1688585681447,"stop":1688585683604,"duration":2157},"status":"passed","severity":"normal"},{"uid":"b298321fbf57fcc1","name":"Customer doesn't fill the last name","time":{"start":1688585684295,"stop":1688585684303,"duration":8},"status":"broken","severity":"normal"}]
