@@ -32,7 +32,7 @@ jobs:
 
       - name: Run Test
         if: always()
-        run: pytest --remote True app/tests/test_registration_page.py
+        run: pytest app/tests/test_registration_page.py
         continue-on-error: true
 
       - name: Get Allure history
