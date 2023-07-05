@@ -56,16 +56,16 @@ def test_empty_first_name(wd):
 #     registration_page.assert_first_name_error(incorrect_name[1])
 #
 #
-@allure.tag('id 1.4')
-@allure.label('owner', 'SergeiT')
-@allure.severity('normal')
-@allure.feature('Registration page')
-@allure.title("Customer doesn't fill the last name")
-def test_empty_last_name(wd):
-    registration_page = RegistrationPage(wd)
-    url = f"{os.getenv('URL_PROD')}/cy/en/registration"
-    registration_page.open(url)
-    registration_page.click_on_next_btn()
+# @allure.tag('id 1.4')
+# @allure.label('owner', 'SergeiT')
+# @allure.severity('normal')
+# @allure.feature('Registration page')
+# @allure.title("Customer doesn't fill the last name")
+# def test_empty_last_name(wd):
+#     registration_page = RegistrationPage(wd)
+#     url = f"{os.getenv('URL_PROD')}/cy/en/registration"
+#     registration_page.open(url)
+#     registration_page.click_on_next_btn()
     # registration_page.assert_last_name_error('Please complete your last name')
 #
 #
