@@ -17,7 +17,6 @@ def load_env():
 def pytest_addoption(parser):
     parser.addoption("--browser", action="store", default="chrome")
     parser.addoption("--browser_ver", action="store", default="111.0")
-
     parser.addoption("--remote", action="store", default=False)
     parser.addoption("--hub", action="store", default="localhost")
 
@@ -67,7 +66,7 @@ def create_remote_driver(config):
         "browserName": config["browser"],
         "browserVersion": config["version"],
         "selenoid:options": {
-        "sessionTimeout": "30m",
+        # "sessionTimeout": "30m",
         "enableVNC": True,
         "enableVideo": False
         # "screenResolution": "1920x1080x24"
@@ -128,5 +127,5 @@ def wd(config):
     with allure.step('Close the driver'):
         attach.add_html(driver)
         attach.add_logs(driver)
-        attach.add_video(driver)
+        # attach.add_video(driver)
         driver.quit()
